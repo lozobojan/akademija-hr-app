@@ -1,6 +1,7 @@
 <?php 
 
     include "../db.php";
+    include "../funkcije.php";
 
 ?>
 <!DOCTYPE html>
@@ -70,12 +71,7 @@
                 <input type="text" name="jmbg" required min="13" max="13" placeholder="Unesite JMBG.." class="form-control">
                 <select name="grad_id" required id="grad_id_select" class="form-control mt-3">
                     <option value="">- odaberite grad -</option>
-                    <?php 
-                        $res_grad = mysqli_query($dbconn, "SELECT * FROM grad ORDER BY naziv ASC");
-                        while($row_grad = mysqli_fetch_assoc($res_grad)){
-                            echo "<option value=\"".$row_grad['id']."\">".$row_grad['naziv']."</option>";
-                        }
-                    ?>
+                    <?php sifarnik("grad"); ?>
                 </select>
                 <label for="adresa_input">Adresa:</label>
                 <input type="text" name="adresa" required placeholder="Unesite adresu.." class="form-control">
@@ -86,27 +82,96 @@
           </div>
           <!-- /.col-md-6 -->
 
-        <div class="col-lg-6">
+          <div class="col-lg-6">
+              <div class="card card-primary card-outline">
+              <div class="card-header">
+                  <h5 class="m-0">Kontakt podaci</h5>
+              </div>
+              <div class="card-body">
+                  <label for="telefon1_input">Mobilni telefon:</label>
+                  <input type="text" name="telefon1" required placeholder="Unesite telefon.." class="form-control">
+                  <label for="telefon2_input">Fiksni telefon:</label>
+                  <input type="text" name="telefon2" placeholder="Unesite telefon.." class="form-control">
+                  <label for="email_input">Email adresa:</label>
+                  <input type="email" name="email" placeholder="Unesite email.." class="form-control">
+                  <label for="kancelarija_input">Kancelarija adresa:</label>
+                  <input type="text" name="kancelarija" placeholder="Unesite broj kancelarije.." class="form-control">
+              </div>
+              </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          
+          <div class="col-lg-6">
             <div class="card card-primary card-outline">
-            <div class="card-header">
-                <h5 class="m-0">Kontakt podaci</h5>
-            </div>
-            <div class="card-body">
-                <label for="telefon1_input">Mobilni telefon:</label>
-                <input type="text" name="telefon1" required placeholder="Unesite telefon.." class="form-control">
-                <label for="telefon2_input">Fiksni telefon:</label>
-                <input type="text" name="telefon2" placeholder="Unesite telefon.." class="form-control">
-                <label for="email_input">Email adresa:</label>
-                <input type="email" name="email" placeholder="Unesite email.." class="form-control">
-                <label for="kancelarija_input">Kancelarija adresa:</label>
-                <input type="text" name="kancelarija" placeholder="Unesite broj kancelarije.." class="form-control">
+              <div class="card-header">
+                <h5 class="m-0">Status zaposlenja</h5>
+              </div>
+              <div class="card-body">
 
-                <button class="btn btn-success btn-block mt-4 mb-2">Dodaj</button>
+                <label for="datum_input">Datum početka:</label>
+                <input type="date" required name="datum_pocetka" id="datum_input" class="form-control">
+                      
+                <label for="vrsta_select">Vrsta zaposlenja:</label>
+                <select required name="vrsta_zaposlenja" id="vrsta_select" class="form-control">
+                    <option value="">- odaberite vrstu zaposlenja -</option>
+                    <?php sifarnik("vrsta_zaposlenja"); ?>
+                </select>
+
+                <label for="banka_select">Banka:</label>
+                <select required name="banka" id="banka_select" class="form-control">
+                    <option value="">- odaberite banku -</option>
+                    <?php sifarnik("banka"); ?>
+                </select>
+
+                <label for="broj_zr_input">Broj žiro računa:</label>
+                <input type="text" class="form-control" required id="broj_zr_input" name="broj_zr" >
+
+                <label for="napomena_txt">Napomena:</label>
+                <textarea name="napomena" id="napomena_txt" class="form-control" rows="3"></textarea>
+
+              </div>
             </div>
-            </div>
+          </div>
+          <!-- /.col-md-6 -->
+
+          <div class="col-lg-6">
+              <div class="card card-primary card-outline">
+              <div class="card-header">
+                  <h5 class="m-0">Opis posla</h5>
+              </div>
+              <div class="card-body">
+
+                  <label for="sektor_select">Sektor:</label>
+                  <select required name="sektor_id" id="sektor_select" class="form-control">
+                      <option value="">- odaberite sektor -</option>
+                      <?php sifarnik("sektor"); ?>
+                  </select>
+
+                  <label for="pozicija_input">Pozicija:</label>
+                  <input type="text" name="pozicija" required placeholder="Unesite naziv pozicije.." class="form-control">
+
+                  <label for="opis_posla_txt">Opis posla:</label>
+                  <textarea name="opis_posla" id="opis_posla_txt" class="form-control" rows="3"></textarea>
+
+                  <label for="plata_input">Iznos plate:</label>
+                  <input type="number" name="plata" required placeholder="Unesite iznos plate.." step="0.01" class="form-control">
+
+                  <label for="vjestine_txt">Vještine:</label>
+                  <textarea name="vjestine" id="vjestine_txt" class="form-control" rows="3"></textarea>
+
+                  <label for="napomena_txt">Napomena:</label>
+                  <textarea name="napomena" id="napomena_txt" class="form-control" rows="3"></textarea>
+
+                  <button class="btn btn-success btn-block mt-4 mb-2">Dodaj</button>
+              </div>
+              </div>
+          </div>
+
         </div>
 
-        </div>
         <!-- /.row -->
         </form>
 
