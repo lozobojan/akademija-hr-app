@@ -1,3 +1,9 @@
+<?php 
+
+  include "db.php";
+  include "funkcije.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +23,7 @@
 
   <?php
 
+    $dubina = 0;
     include './nav.php'; 
     include './aside.php';
     

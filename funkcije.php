@@ -5,11 +5,18 @@
         exit();
     }
 
-    function sifarnik($tabela){
+    function debug($var){
+        var_dump($var);
+        exit;
+    }
+
+    function sifarnik($tabela, $selected_id = null){
         global $dbconn;
         $res = mysqli_query($dbconn, "SELECT * FROM $tabela ORDER BY naziv ASC");
         while($row = mysqli_fetch_assoc($res)){
-            echo "<option value=\"".$row['id']."\">".$row['naziv']."</option>";
+            $selected_temp = "";
+            if($selected_id != null && $row['id'] == $selected_id ) $selected_temp = "selected";
+            echo "<option value=\"".$row['id']."\" $selected_temp >".$row['naziv']."</option>";
         }
     }
 
@@ -42,5 +49,42 @@
         }else{
             return false;
         }
+    }
+
+    function izmijeni($tabela, $vrijednosti, $id){
+        global $dbconn;
+        $cols = [];
+        foreach($vrijednosti as $key => $val ){
+            $cols[] = " `$key` = '$val' ";
+        }
+        $sql = " UPDATE $tabela SET ".implode(", ", $cols)." WHERE id = $id ";
+        if(mysqli_query($dbconn, $sql)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function brisi($tabela, $id, $soft = true){
+        global $dbconn;
+        if($soft){
+            $sql = " UPDATE $tabela SET obrisan = true WHERE id = $id ";
+        }else{
+            $sql = " DELETE FROM $tabela WHERE id = $id ";
+        }
+        if(mysqli_query($dbconn, $sql)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function putanja($dubina){
+        $res = "";
+        while($dubina > 0){
+            $res .= "../";
+            $dubina--;
+        }
+        return $res;
     }
 ?>

@@ -25,6 +25,7 @@
 
   <?php
 
+    $dubina = 1;
     include '../nav.php'; 
     include '../aside.php';
     
@@ -61,7 +62,7 @@
                     <h5 class="m-0">Svi zaposleni</h5>
                 </div>
                 <div class="card-body">
-                    <table id="example2" class="table table-bordered table-hover">
+                    <table id="tabela_zaposlenih" class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>Ime i prezime</th>
@@ -69,6 +70,8 @@
                         <th>Adresa</th>
                         <th>Datum rođenja</th>
                         <th>Kancelarija</th>
+                        <th>...</th>
+                        <th>...</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -78,16 +81,22 @@
                                             g.naziv as grad
                                     FROM radnik r
                                     LEFT JOIN grad g ON g.id = r.grad_id
+                                    WHERE r.obrisan <> true
                                     ORDER BY r.ime ASC
                             ";
                             $res = mysqli_query($dbconn, $sql);
                             while($radnik = mysqli_fetch_assoc($res)){
+                                $id = $radnik['id'];
+                                $link_izmjena = "<a href=\"izmjena.php?id=$id\" ><i class=\"fa fa-edit\"></i></a>";
+                                $link_brisanje = "<a href=\"#\" onclick=\"brisi($id)\" ><i class=\"fa fa-times\"></i></a>";
                                 echo "<tr>";
                                 echo "  <td>".$radnik['ime']." ".$radnik['prezime']."</td>";
                                 echo "  <td>".$radnik['grad']."</td>";
                                 echo "  <td>".$radnik['adresa']."</td>";
                                 echo "  <td>".$radnik['datum_rodjenja']."</td>";
                                 echo "  <td>".$radnik['kancelarija']."</td>";
+                                echo "  <td>$link_izmjena</td>";
+                                echo "  <td>$link_brisanje</td>";
                                 echo "</tr>";
                             }
                         ?>
@@ -99,6 +108,8 @@
                         <th>Adresa</th>
                         <th>Datum rođenja</th>
                         <th>Kancelarija</th>
+                        <th>...</th>
+                        <th>...</th>
                     </tr>
                     </tfoot>
                     </table>
@@ -140,5 +151,31 @@
 <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
+<script>
+
+    // napraviti da se potvrda radi iz modala
+    function brisi(id){
+      if( confirm("Da li ste sigurni?") ){
+        location.href = "./brisi.php?id="+id;
+      }
+    }
+
+</script>
+
+<script>
+  $(function () {
+    $('#tabela_zaposlenih').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+
 </body>
 </html>
