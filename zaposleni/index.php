@@ -38,12 +38,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Starter Page</h1>
+            <h1 class="m-0">Zaposleni</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="#">Početna</a></li>
+              <li class="breadcrumb-item active">Zaposleni</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -89,8 +89,9 @@
                                 $id = $radnik['id'];
                                 $link_izmjena = "<a href=\"izmjena.php?id=$id\" ><i class=\"fa fa-edit\"></i></a>";
                                 $link_brisanje = "<a href=\"#\" onclick=\"brisi($id)\" ><i class=\"fa fa-times\"></i></a>";
+                                $link_pregled = "<a href=\"./detalji.php?id=$id\" > ".$radnik['ime']." ".$radnik['prezime']." </a>";
                                 echo "<tr>";
-                                echo "  <td>".$radnik['ime']." ".$radnik['prezime']."</td>";
+                                echo "  <td>$link_pregled</td>";
                                 echo "  <td>".$radnik['grad']."</td>";
                                 echo "  <td>".$radnik['adresa']."</td>";
                                 echo "  <td>".$radnik['datum_rodjenja']."</td>";

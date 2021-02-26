@@ -87,4 +87,18 @@
         }
         return $res;
     }
+
+    function uploadFile( $file, $subfolder ){
+        $original_name = $_FILES[$file]['name'];
+        $tmp_name = $_FILES[$file]['tmp_name'];
+        // originalna ekstenzija
+        $temp_arr = explode(".", $original_name );
+        $ext = $temp_arr[ count($temp_arr)-1 ];
+        
+        mkdir("../uploads/".$subfolder);
+        $new_file_name = "../uploads/".$subfolder."/".uniqid().".".$ext;
+        copy($tmp_name, $new_file_name);
+
+        return $new_file_name;
+    }
 ?>
