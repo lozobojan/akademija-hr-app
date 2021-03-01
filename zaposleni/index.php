@@ -1,6 +1,19 @@
 <?php  
     include '../db.php';
     include '../funkcije.php';
+
+    // radi li se pretraga
+    $dodatni_uslovi = "";
+    if( isset($_GET['filter_zaposleni']) && $_GET['filter_zaposleni'] != "" ){
+      $filter_zaposleni = strtolower($_GET['filter_zaposleni']);
+      $dodatni_uslovi .= " AND 
+                          ( 
+                            lower(r.ime) LIKE '%$filter_zaposleni%' 
+                            OR  lower(r.prezime) LIKE '%$filter_zaposleni%' 
+                            OR r.jmbg = '$filter_zaposleni' 
+                          ) ";
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +39,7 @@
   <?php
 
     $dubina = 1;
+    $aktivna_stranica = "zaposleni/index.php";
     include '../nav.php'; 
     include '../aside.php';
     
@@ -82,6 +96,7 @@
                                     FROM radnik r
                                     LEFT JOIN grad g ON g.id = r.grad_id
                                     WHERE r.obrisan <> true
+                                    $dodatni_uslovi
                                     ORDER BY r.ime ASC
                             ";
                             $res = mysqli_query($dbconn, $sql);

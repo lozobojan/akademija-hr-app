@@ -101,4 +101,18 @@
 
         return $new_file_name;
     }
+
+    function checkAuth($admin = false){
+        if( !$_SESSION['prijava'] ){
+            redirect('login.html');
+        }
+        if( $admin && !isAdmin() ){
+            redirect('../index.php');
+        }
+    }
+
+    function isAdmin(){
+        return $_SESSION['prijava'] && $_SESSION['uloga_id'] == 1;
+    }
+
 ?>

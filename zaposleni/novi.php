@@ -23,6 +23,8 @@
 
   <?php
 
+    $dubina = 1;
+    $aktivna_stranica = "zaposleni/novi.php";
     include '../nav.php'; 
     include '../aside.php';
     

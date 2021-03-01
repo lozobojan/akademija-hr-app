@@ -1,7 +1,10 @@
 <?php 
 
+
   include "db.php";
   include "funkcije.php";
+
+  checkAuth();
 
 ?>
 <!DOCTYPE html>
@@ -24,6 +27,7 @@
   <?php
 
     $dubina = 0;
+    $aktivna_stranica = "hr-app/index.php";
     include './nav.php'; 
     include './aside.php';
     

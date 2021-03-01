@@ -20,7 +20,7 @@
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
+      <!-- <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
@@ -29,7 +29,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -37,7 +37,9 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="<?=putanja($dubina)?>zaposleni" class="nav-link active">
+
+            <?php explode('/', $aktivna_stranica)[0] == 'zaposleni' ? $active = 'active' : $active = "";  ?>
+            <a href="<?=putanja($dubina)?>zaposleni" class="nav-link <?=$active?> ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Zaposleni
@@ -46,28 +48,33 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=putanja($dubina)?>zaposleni" class="nav-link active">
+                <?php explode('/', $aktivna_stranica)[0] == 'zaposleni' && explode('/', $aktivna_stranica)[1] == 'index.php' ? $active = 'active' : $active = "";  ?>
+                <a href="<?=putanja($dubina)?>zaposleni" class="nav-link <?=$active?> ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lista zaposlenih</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <?php explode('/', $aktivna_stranica)[0] == 'zaposleni' && explode('/', $aktivna_stranica)[1] == 'novi.php' ? $active = 'active' : $active = "";  ?>
+                <a href="<?=putanja($dubina)?>zaposleni/novi.php" class="nav-link <?=$active?> ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Novi zaposleni</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
+          
+          <?php
+            if(isAdmin()){
+              explode('/', $aktivna_stranica)[0] == 'arhiva' && explode('/', $aktivna_stranica)[1] == 'index.php' ? $active = 'active' : $active = "";
+              echo "<li class=\"nav-item  \">
+                    <a href=\"arhiva/index.php\" class=\"nav-link $active \">
+                      <i class=\"nav-icon fas fa-th\"></i> <p>Arhiva</p>
+                    </a>
+                  </li>";
+            }
+          ?>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
