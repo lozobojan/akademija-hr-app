@@ -68,8 +68,19 @@
             if(isAdmin()){
               explode('/', $aktivna_stranica)[0] == 'arhiva' && explode('/', $aktivna_stranica)[1] == 'index.php' ? $active = 'active' : $active = "";
               echo "<li class=\"nav-item  \">
-                    <a href=\"arhiva/index.php\" class=\"nav-link $active \">
+                    <a href=\"".putanja($dubina)."arhiva/index.php\" class=\"nav-link $active \">
                       <i class=\"nav-icon fas fa-th\"></i> <p>Arhiva</p>
+                    </a>
+                  </li>";
+            }
+          ?>
+
+          <?php
+            if(isAdmin()){
+              explode('/', $aktivna_stranica)[0] == 'statistika' && explode('/', $aktivna_stranica)[1] == 'index.php' ? $active = 'active' : $active = "";
+              echo "<li class=\"nav-item  \">
+                    <a href=\"".putanja($dubina)."statistika/index.php\" class=\"nav-link $active \">
+                      <i class=\"nav-icon fas fa-table\"></i> <p>Statistika</p>
                     </a>
                   </li>";
             }

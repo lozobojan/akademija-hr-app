@@ -71,6 +71,13 @@
                 <input type="date" name="datum_rodjenja" class="form-control">
                 <label for="jmbg_input">JMBG:</label>
                 <input type="text" name="jmbg" required min="13" max="13" placeholder="Unesite JMBG.." class="form-control">
+
+                <label for="pol_select">Odaberite pol:</label>
+                <select   name="pol" id="pol_select" class="form-control" >
+                  <option value="Muški">Muški</option>
+                  <option value="Ženski">Ženski</option>
+                </select>
+
                 <select name="grad_id" required id="grad_id_select" class="form-control mt-3">
                     <option value="">- odaberite grad -</option>
                     <?php sifarnik("grad"); ?>

@@ -40,6 +40,7 @@
   <?php
 
     $dubina = 1;
+    $aktivna_stranica = "zaposleni/izmjena.php";
     include '../nav.php'; 
     include '../aside.php';
     
@@ -87,6 +88,18 @@
                 <input type="date" name="datum_rodjenja" class="form-control" value="<?=$radnik['datum_rodjenja']?>" >
                 <label for="jmbg_input">JMBG:</label>
                 <input type="text" name="jmbg" required min="13" max="13" value="<?=$radnik['jmbg']?>" placeholder="Unesite JMBG.." class="form-control">
+                
+                <label for="pol_select">Odaberite pol:</label>
+                <select   name="pol" id="pol_select" class="form-control" >
+                  <?php 
+                      $radnik['pol'] == "Muški" ? $sel1 = 'selected' : $sel1 = '';
+                      $radnik['pol'] == "Ženski" ? $sel2 = 'selected' : $sel2 = '';
+                  ?>
+                  <option value="Muški" <?=$sel1?> >Muški</option>
+                  <option value="Ženski" <?=$sel2?> >Ženski</option>
+                </select>
+                
+                <label for="grad_id_select">Odaberite grad:</label>
                 <select name="grad_id" required id="grad_id_select" class="form-control mt-3">
                     <option value="">- odaberite grad -</option>
                     <?php sifarnik("grad", $radnik['grad_id']); ?>

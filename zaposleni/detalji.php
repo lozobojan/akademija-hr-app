@@ -74,6 +74,7 @@
   <?php
 
     $dubina = 1;
+    $aktivna_stranica = "zaposleni/detalji.php";
     include '../nav.php'; 
     include '../aside.php';
     
@@ -115,6 +116,7 @@
                 <p>Prezime: <?=$radnik['prezime']?></p>
                 <p>Datum rodjenja: <?=date('d.m.Y', strtotime($radnik['datum_rodjenja']) )?></p>
                 <p>JMBG: <?=$radnik['jmbg']?></p>
+                <p>Pol: <?=$radnik['pol']?></p>
                 <p>Grad: <?=$radnik['grad_naziv']?></p>
                 <p>Adresa: <?=$radnik['adresa']?></p>
             

@@ -15,6 +15,7 @@
         $vrijednosti['datum_rodjenja'] = validacija($_POST, 'datum_rodjenja', true, "", "./novi.php?msg=err3");
         $vrijednosti['grad_id'] = validacija($_POST, 'grad_id', true, "", "./novi.php?msg=err4");
         $vrijednosti['adresa'] = validacija($_POST, 'adresa', true, "", "./novi.php?msg=err5");
+        $vrijednosti['pol'] = validacija($_POST, 'pol', true, "", "./novi.php?msg=err5.1");
 
         // TODO: FOTOGRAFIJA !!!
 
