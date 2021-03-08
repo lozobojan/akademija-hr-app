@@ -122,6 +122,9 @@
 
                 <label for="datum_input">Datum početka:</label>
                 <input type="date" required name="datum_pocetka" id="datum_input" class="form-control">
+
+                <label for="datum_isteka_ugovora">Datum isteka ugovora:</label>
+                <input type="date" required name="datum_isteka_ugovora" id="datum_isteka_ugovora" class="form-control">
                       
                 <label for="vrsta_select">Vrsta zaposlenja:</label>
                 <select required name="vrsta_zaposlenja" id="vrsta_select" class="form-control">

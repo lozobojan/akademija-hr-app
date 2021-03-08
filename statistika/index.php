@@ -116,6 +116,43 @@
             </div>
         </div>
 
+        <div class="row mt-4">
+            <div class="col-6">
+                <!-- PIE CHART 3 -->
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">Zaposleni po vrsti zaposlenja</h3>
+
+                        <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="pieChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <?php 
+                      $prosjecan_staz = mysqli_fetch_row(mysqli_query($dbconn, "SELECT avg(YEAR(CURRENT_TIMESTAMP) - YEAR(datum_pocetka)) from radnik_zaposlenje"))[0];
+                    ?>
+                    <p class="text-center" >Prosječan radni staž: <?=round($prosjecan_staz, 1)?> godina</p>
+
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <a href="./izvjestaj_prosjecna_plata.php" class="btn btn-primary" >Izvještaj o plati po sektorima</a>
+          </div>
+        </div>
+
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -211,6 +248,37 @@
                 }
                 
                 let pieChartCanvas = $('#pieChart2').get(0).getContext('2d')
+                let pieData        = pieChartData;
+                let pieOptions     = {
+                    maintainAspectRatio : false,
+                    esponsive : true,
+                }
+                
+                let pieChart = new Chart(pieChartCanvas, {
+                    type: 'pie',
+                    data: pieData,
+                    options: pieOptions
+                })
+
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "./zaposleni_po_vz.php",
+            success: (response) => {
+                let response_arr = JSON.parse(response);
+                let pieChartData = {
+                    labels: response_arr.labels,
+                    datasets: [
+                        {
+                            data: response_arr.values,
+                            backgroundColor : response_arr.colors,
+                        }
+                    ]
+                }
+                
+                let pieChartCanvas = $('#pieChart3').get(0).getContext('2d')
                 let pieData        = pieChartData;
                 let pieOptions     = {
                     maintainAspectRatio : false,

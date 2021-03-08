@@ -31,6 +31,7 @@
 
         // STATUS ZAPOSLENJA
         $vrijednosti_status_zaposlenja['datum_pocetka'] = validacija($_POST, 'datum_pocetka', true, "", "./novi.php?msg=err9");
+        $vrijednosti_status_zaposlenja['datum_isteka_ugovora'] = validacija($_POST, 'datum_isteka_ugovora', false, "", "");
         $vrijednosti_status_zaposlenja['vrsta_zaposlenja_id'] = validacija($_POST, 'vrsta_zaposlenja', true, "", "./novi.php?msg=err9");
         $vrijednosti_status_zaposlenja['banka_id'] = validacija($_POST, 'banka', true, "", "./novi.php?msg=err10");
         $vrijednosti_status_zaposlenja['broj_zr'] = validacija($_POST, 'broj_zr', true, "", "./novi.php?msg=err11");

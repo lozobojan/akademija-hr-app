@@ -31,6 +31,26 @@
         </div>
       </div>
     </form>
+    
+    <?php 
+
+      $sql_obavjestenja = "SELECT
+	
+                              radnik.id,
+                              radnik.ime,
+                              radnik.prezime,
+                              sektor.naziv as sektor,
+                              DATEDIFF(radnik_zaposlenje.datum_isteka_ugovora, CURRENT_TIMESTAMP) as dana_do_isteka
+                          
+                          from radnik_zaposlenje 
+                          join radnik on radnik.id = radnik_zaposlenje.radnik_id
+                          join radnik_pozicija on radnik.id = radnik_pozicija.radnik_id
+                          join sektor on sektor.id = radnik_pozicija.sektor_id
+                          where DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 30 DAY) > radnik_zaposlenje.datum_isteka_ugovora";
+      $res_obavjestenja = mysqli_query($dbconn, $sql_obavjestenja);
+      $broj_obavjestenja = mysqli_num_rows($res_obavjestenja);
+              
+    ?>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -38,27 +58,27 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge"><?=$broj_obavjestenja?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header">15 Notifications</span>
+          <span class="dropdown-header"><?=$broj_obavjestenja?> novih obavještenja</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          
+          <?php 
+
+              while($row_obavjestenja = mysqli_fetch_assoc($res_obavjestenja)){
+
+                  echo '<div class="dropdown-divider"></div>
+                          <a href="'.putanja($dubina).'/zaposleni/detalji.php?id='.$row_obavjestenja['id'].'" class="dropdown-item">
+                            <i class="fas fa-file mr-2"></i>'.$row_obavjestenja['ime'].' '.$row_obavjestenja['prezime'].'
+                            <span class="float-right text-muted text-sm">'.$row_obavjestenja['dana_do_isteka'].' dana</span>
+                          </a>
+                        <div class="dropdown-divider"></div>
+                        ';
+              }
+              
+          ?>
+          <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
         </div>
       </li>
       <li class="nav-item">
